@@ -26,6 +26,36 @@ Table of Contents
     - [Upgrade to a new version](https://docs.kanboard.org/v1/admin/upgrade/)
     - [Use Kanboard with Docker](https://docs.kanboard.org/v1/admin/docker/)
 
+Deploying to Fly.io
+---------------------
+
+1.  **Install `flyctl`**: Follow the instructions on the [official Fly.io documentation](https://fly.io/docs/hands-on/install-flyctl/).
+2.  **Login to Fly.io**: Run `flyctl auth login`.
+3.  **Launch the app**: Navigate to your Kanboard project directory in your terminal and run `flyctl launch`. This will detect the `fly.toml` file and guide you through the initial deployment. You might need to adjust the generated `fly.toml` based on your specific needs (e.g., for persistent storage, environment variables).
+4.  **Deploy changes**: After making changes to your application, deploy them by running `flyctl deploy`.
+
+Running Locally (for development)
+---------------------------------
+
+1.  **Prerequisites**:
+    *   Install [PHP](https://www.php.net/manual/en/install.php) (version compatible with Kanboard, check `composer.json`).
+    *   Install [Composer](https://getcomposer.org/doc/00-intro.md).
+2.  **Install Dependencies**:
+    *   Navigate to your Kanboard project directory.
+    *   Run `composer install` to download the required PHP libraries.
+3.  **Configuration**:
+    *   If it doesn't exist, copy `config.default.php` to `config.php`.
+    *   Modify `config.php` to set up your database connection (e.g., for SQLite, which is simplest for local development) and other parameters as needed.
+    *   Ensure the `data` directory (and `plugins`, `certs` if used) are writable by the web server/PHP process.
+4.  **Database Migration**:
+    *   Run `php cli db:migrate` to set up the database schema.
+5.  **Compile Assets**:
+    *   Run `php cli css` to compile CSS files.
+    *   Run `php cli js` to compile JavaScript files.
+6.  **Start the PHP Built-in Web Server**:
+    *   Run `php -S localhost:8000` (or your preferred port) from the project root.
+    *   Access Kanboard in your browser at `http://localhost:8000`.
+
 Credits
 -------
 
